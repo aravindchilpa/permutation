@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Permutation Generator</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="png" href="favicon-32x32.png">
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  <style>
+
+  @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Caveat&family=Hind+Guntur:wght@300;400;500&family=Iceberg&family=Instrument+Sans&family=Monomaniac+One&family=Nunito&family=Outfit:wght@400;500&family=Pacifico&family=Poppins:ital@1&family=Reem+Kufi+Fun&family=Ubuntu&display=swap');
+
+  .container {
+  text-align: center;
+  margin-top: 50px;
+  font-family: 'Outfit', sans-serif;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0 20px;
+}
+
+h1 {
+  color: #000;
+  font-family: 'Outfit', sans-serif;
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+h3{
+    color: #333;
+}
+
+input[type="text"] {
+  padding: 10px;
+  font-size: 16px;
+  border: none;
+  border: 1px solid black;
+  outline: none;
+  font-family: 'Outfit', sans-serif;
+  border-radius: 10px;
+}
+
+button{
+
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  margin-left: -38px;
+  
+ 
+}
+button i{
+    font-size: 18px;
+    color:#000;
+}
+
+#results {
+  padding: 20px;
+  margin-top: 20px;
+  margin-left: -5px;
+  font-size: 18px;
+  letter-spacing: 5px;
+  font-family: 'Outfit', sans-serif;
+}
+
+.result-box {
+  display: inline-block;
+  padding: 10px;
+  margin: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+.result-box:hover {
+ background-color: #000;
+ color: white;
+}
+
+
+@media only screen and (max-width: 600px) {
+  h1 {
+    font-size: 20px;
+  }
+
+  input[type="text"],
+  button {
+    font-size: 18px;
+    padding: 8px;
+  }
+}
+
+@media only screen and (max-width: 400px) {
+  h1 {
+    font-size: 18px;
+  }
+
+  input[type="text"],
+  button {
+    font-size: 18px;
+    padding: 6px;
+  }
+  button{
+margin:0px -40px;
+width: 40px;
+height: 40px;
+border: none;
+background-color: transparent;
+}
+button i{
+  
+  color:#000;
+}
+}
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Permutation Generator</h1>
+    <h3>Unlock the Magic of Names: Combine Your Characters, Create Your Child's Destiny</h3>
+    <p>eg:"KRI" in name krishna,"DHA" in name radha</p>
+    <input type="text" id="characters" placeholder="Enter characters">
+    <button onclick="generatePermutations()"><i class='bx bx-send'></i></button>
+    <div id="results"></div>
+  </div>
+  <script>
+    function generatePermutations() {
+      var characters = document.getElementById("characters").value;
+      var resultsDiv = document.getElementById("results");
+      resultsDiv.innerHTML = "";
+
+      // Recursive function to generate permutations
+      function permute(arr, prefix = "") {
+        if (arr.length === 0) {
+          var resultBox = document.createElement("div");
+          resultBox.classList.add("result-box");
+          resultBox.innerText = prefix;
+          resultsDiv.appendChild(resultBox);
+        } else {
+          for (var i = 0; i < arr.length; i++) {
+            var remArr = arr.slice(0, i).concat(arr.slice(i + 1));
+            permute(remArr, prefix + arr[i]);
+          }
+        }
+      }
+
+      // Call the permute function with input characters
+      permute(characters);
+      resultsDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+    document.getElementById("characters").addEventListener("keyup", function(event) {
+      if (event.keyCode === 13) {
+        event.preventDefault();
+        generatePermutations();
+      }
+    });
+  </script>
+</body>
+</html>
